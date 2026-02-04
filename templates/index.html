@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ArcheScan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>I.D.A.R.</h1>
+        <p>International Digital Archaeology Repository</p>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/upload">Upload</a>
+            <a href="/upload-image-only">Upload Only (AI)</a> <!-- NEW BUBBLE -->
+            <a href="/model">3D Models</a>
+            <a href="/gallery">Gallery</a>
+            <a href="/videos">Videos</a>
+
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Our Mission</h2>
+            <p>
+                I.D.A.R. allows archaeologists around the world to upload, share,
+                and preserve cultural artifacts using 3D scanning and AI-generated
+                historical insights.
+            </p>
+        </section>
+
+        <section>
+            <h2>Our Team</h2>
+            <p>Meet the amazing minds behind ArcheScan.</p>
+            <img src="{{ url_for('static', filename='images/team.jpg') }}" alt="ArcheScan Team" class="team-photo">
+        </section>
+
+        <section>
+            <h2>Features</h2>
+            <ul>
+                <li>3D artifact scanning and viewing</li>
+                <li>AI-generated origin, age, and fun facts</li>
+                <li>3D-printable models</li>
+                <li>Nearest museum locator</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 ArcheScan</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Artifact</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Upload Artifact</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/upload">Upload</a>
+        <a href="/upload-image-only">Upload Only (AI)</a>
+        <a href="/model">3D Models</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/videos">Videos</a>
+
+    </nav>
+</header>
+
+<main>
+    <!-- Upload Form -->
+    <section class="upload-form">
+        <h2>Upload a New Artifact</h2>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="name">Artifact Name</label>
+            <input type="text" id="name" name="name" placeholder="Artifact Name" required>
+
+            <label for="file">Upload Image or 3D Scan</label>
+            <input type="file" id="file" name="file" accept=".jpg,.png,.obj,.stl" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Describe the artifact..."></textarea>
+
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+
+    <!-- Uploaded Artifacts -->
+    <section class="uploaded-artifacts">
+        <h2>Uploaded Artifacts</h2>
+        <div class="artifacts">
+            {% for artifact in uploads %}
+            <div class="artifact-card">
+                <h3>{{ artifact.name }}</h3>
+                <img src="{{ url_for('uploaded_file', filename=artifact.filename) }}" alt="{{ artifact.name }}" width="200">
+                <p>{{ artifact.description }}</p>
+
+                <!-- AI Summary / Fact -->
+                {% if artifact.summary %}
+                <p class="ai-fact"><strong>AI Fact:</strong> {{ artifact.summary }}</p>
+                {% else %}
+                <p class="ai-fact"><strong>AI Fact:</strong> Not available</p>
+                {% endif %}
+
+                <!-- Delete Button -->
+                <form action="{{ url_for('delete_artifact', filename=artifact.filename) }}" method="POST" 
+                      onsubmit="return confirm('Are you sure you want to delete this artifact?');">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+            {% else %}
+            <p>No artifacts uploaded yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 ArcheScan</p>
+</footer>
+</body>
+</html>

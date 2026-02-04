@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Artifact Image Only</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Upload Artifact (Image Only)</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/upload">Upload</a>
+        <a href="/upload-image-only">Upload Image Only</a>
+        <a href="/model">3D Models</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/videos">Videos</a>
+
+    </nav>
+</header>
+
+<main>
+    <section class="upload-form">
+        <h2>Upload an Image</h2>
+        <form action="/upload-image-only" method="POST" enctype="multipart/form-data">
+            <label for="file">Upload Image</label>
+            <input type="file" id="file" name="file" accept=".jpg,.png" required>
+
+            <label for="description">Optional Description</label>
+            <textarea id="description" name="description" placeholder="Describe the artifact..."></textarea>
+
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+
+    <section class="uploaded-artifacts">
+        <h2>Uploaded Artifacts</h2>
+        <div class="artifacts">
+            {% for artifact in uploads %}
+            <div class="artifact-card">
+                <h3>{{ artifact.name }}</h3>
+                <img src="{{ url_for('uploaded_file', filename=artifact.filename) }}" alt="{{ artifact.name }}" width="200">
+                <p>{{ artifact.description }}</p>
+
+                {% if artifact.summary %}
+                <p class="ai-fact"><strong>AI Fact:</strong> {{ artifact.summary }}</p>
+                {% else %}
+                <p class="ai-fact"><strong>AI Fact:</strong> Not available</p>
+                {% endif %}
+            </div>
+            {% else %}
+            <p>No artifacts uploaded yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="uploaded-artifacts">
+    <h2>Artifacts Identified by AI from Image</h2>
+    <div class="artifacts">
+        {% for artifact in uploads %}
+        <div class="artifact-card">
+            <h3>{{ artifact.name }}</h3>
+            <img src="{{ url_for('uploaded_file', filename=artifact.filename) }}" alt="{{ artifact.name }}" width="200">
+            <p>{{ artifact.description }}</p>
+
+            {% if artifact.summary %}
+            <p class="ai-fact"><strong>AI Fact:</strong> {{ artifact.summary }}</p>
+            {% else %}
+            <p class="ai-fact"><strong>AI Fact:</strong> Not available</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>No AI-identified artifacts yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 ArcheScan</p>
+</footer>
+</body>
+</html>

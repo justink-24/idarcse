@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Archive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>Innovative Project Unearthed</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/upload">Upload</a>
+        <a href="/upload-image-only">Upload Only (AI)</a>
+        <a href="/model">3D Models</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/videos">Videos</a>
+    </nav>
+</header>
+
+<main>
+<section class="upload-form">
+    <h2>Add a YouTube Video</h2>
+
+    <div class="upload-content">
+        <!-- LEFT: form -->
+        <form method="POST">
+            <input type="text" name="title" placeholder="Video title" required>
+            <input type="url" name="url" placeholder="YouTube link" required>
+            <button type="submit">Add Video</button>
+        </form>
+
+        <!-- RIGHT: image -->
+        <div class="upload-image">
+            <img src="{{ url_for('static', filename='images/fll_unearthed_1240x860.webp') }}"
+                 alt="Upload illustration">
+        </div>
+    </div>
+</section>
+
+
+    <section class="video-gallery">
+        {% for video in videos %}
+            <div class="video-card">
+                <h3>{{ video.title }}</h3>
+                <iframe
+                    src="{{ video.embed_url }}"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        {% else %}
+            <p>No videos added yet.</p>
+        {% endfor %}
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 ArcheScan</p>
+</footer>
+
+</body>
+</html>
